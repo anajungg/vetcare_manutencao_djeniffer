@@ -20,6 +20,12 @@ include __DIR__ . '/../includes/header.php';
 <div class="actions">
     <a class="btn" href="form.php" onclick="submit">+ Novo tutor</a>
 </div>
+<?php if (($_GET['erro'] ?? '') === 'vinculado'): ?>
+    <div class="alert">
+        Não é possível excluir este tutor porque existem animais vinculados.
+    </div>
+<?php endif; ?>
+
 <section class="panel">
     <form method="get">
         <div class="field"><label>Buscar tutor</label>
