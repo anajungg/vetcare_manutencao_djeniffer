@@ -11,11 +11,15 @@ if ($id) {
 }
 $erro = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = trim($_POST['nome'] ?? '');
-    $telefone = trim($_POST['telefone'] ?? '');
-    if ($nome === '')
-        $erro = 'Informe o nome.';
-    else {
+   $nome = trim($_POST['nome'] ?? '');
+$telefone = trim($_POST['telefone'] ?? '');
+
+if ($nome === '') {
+    $erro = 'Informe o nome.';
+} elseif ($telefone !== '' && !preg_match('/^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/', $telefone)) {
+    $erro = 'Informe um telefone válido.';
+} else {
+
         if ($id) {
             $s = $pdo->prepare("UPDATE tutores SET nome=?,telefone=?,email=?,endereco=?,ativo=? WHERE id=?");
             $s->execute([$nome, $telefone, $_POST['email'], $_POST['endereco'], (int) ($_POST['ativo'] ?? 1), $id]);
@@ -37,7 +41,7 @@ include __DIR__ . '/../includes/header.php';
     <form method="post">
         <div class="field"><label>Nome *</label><input name="nome" value="<?= htmlspecialchars($r['nome']) ?>" required>
         </div>
-        <div class="field"><label>Telefone</label><input type="tel" name="telefone" value="<?= htmlspecialchars($r['telefone']) ?>">
+        <div class="field"><label>Telefone</label><input type="tel" name="telefone" value="<?= htmlspecialchars($r['telefone']) ?>" pattern="\(?[0-9]{2}\)?\s?[0-9]{4,5}-?[0-9]{4}">
         </div>
         <div class="field"><label>E-mail</label><input type="email" name="email"
                 value="<?= htmlspecialchars($r['email']) ?>"></div>
