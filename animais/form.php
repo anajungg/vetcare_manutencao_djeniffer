@@ -9,14 +9,25 @@ if ($id) {
     $s->execute([$id]);
     $r = $s->fetch() ?: $r;
 }
-$tutores = $pdo->query("SELECT id,nome FROM tutores ORDER BY nome")->fetchAll();
+$tutores = $pdo->query("SELECT id,nome,endereco FROM tutores ORDER BY nome")->fetchAll();
 $erro = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = trim($_POST['nome'] ?? '');
     $especie = trim($_POST['especie'] ?? '');
-    if ($nome === '')
-        $erro = 'Informe o nome do animal.';
-    else {
+
+    $tutor_id = (int)($_POST['tutor_id'] ?? 0);
+
+$verificar = $pdo->prepare("SELECT endereco FROM tutores WHERE id=?");
+$verificar->execute([$tutor_id]);
+
+$enderecoTutor = trim((string)$verificar->fetchColumn());
+    
+if ($enderecoTutor === '')
+    $erro = 'O tutor precisa possuir um endereço cadastrado.';
+elseif ($nome === '')
+    $erro = 'Informe o nome do animal.';
+else {
+
         $dados = [(int) $_POST['tutor_id'], $nome, $especie, $_POST['raca'], $_POST['nascimento'] ?: null, $_POST['sexo'], $_POST['observacoes']];
         if ($id) {
             $s = $pdo->prepare("UPDATE animais SET tutor_id=?,nome=?,especie=?,raca=?,nascimento=?,sexo=?,observacoes=?,ativo=? WHERE id=?");
