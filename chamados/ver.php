@@ -56,14 +56,16 @@ include __DIR__ . '/../includes/header.php';
     </div>
     <h2><?= htmlspecialchars($c['titulo']) ?></h2>
     <p><b>Solicitante:</b> <?= htmlspecialchars($c['solicitante']) ?> &nbsp; <b>Equipe:</b>
-        <?= htmlspecialchars($c['equipe'] ?: 'Não informada') ?></p>
+        <?= htmlspecialchars($c['equipe'] ?: 'Não informada') ?>
+    </p>
     <p><b>Responsável:</b> <?= htmlspecialchars($c['responsavel'] ?: 'Não atribuído') ?></p>
     <p><b>Descrição</b><br><?= nl2br(htmlspecialchars($c['descricao'])) ?></p>
     <p><b>Passos para reprodução</b><br><?= nl2br(htmlspecialchars($c['passos'])) ?></p>
     <p><b>Resultado esperado</b><br><?= nl2br(htmlspecialchars($c['resultado_esperado'])) ?></p>
     <p><b>Resultado obtido</b><br><?= nl2br(htmlspecialchars($c['resultado_obtido'])) ?></p>
     <p class="muted">Criado em <?= date('d/m/Y H:i', strtotime($c['criado_em'])) ?> • Atualizado em
-        <?= date('d/m/Y H:i', strtotime($c['atualizado_em'])) ?></p>
+        <?= date('d/m/Y H:i', strtotime($c['atualizado_em'])) ?>
+    </p>
 </section>
 <section class="panel">
     <h2>Atualizar atendimento / adicionar comentário</h2>

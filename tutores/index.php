@@ -51,7 +51,8 @@ include __DIR__ . '/../includes/header.php';
                 <td><?= htmlspecialchars($r['email']) ?></td>
                 <td><?= htmlspecialchars($r['endereco']) ?></td>
                 <td><?= $r['ativo'] ? 'Ativo' : 'Inativo' ?></td>
-                <td><a href="form.php?id=<?= $r['id'] ?>">Editar</a> | <a href="excluir.php?id=<?= $r['id'] ?>">Excluir</a></td>
+                <td><a href="form.php?id=<?= $r['id'] ?>">Editar</a> | <a href="excluir.php?id=<?= $r['id'] ?>">Excluir</a>
+                </td>
             </tr><?php endforeach; ?>
     </table>
 </div>
