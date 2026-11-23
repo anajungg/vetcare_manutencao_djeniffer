@@ -8,6 +8,13 @@ $rows = $pdo->query("SELECT a.*,t.nome AS tutor FROM animais a JOIN tutores t ON
 include __DIR__ . '/../includes/header.php'; ?>
 
 <h1>Animais</h1>
+<?php if (($_GET['erro'] ?? '') === 'vinculado'): ?>
+    <div class="alert">
+        Não foi possível excluir este animal porque existem consultas vinculadas.
+    </div>
+<?php endif; ?>
+
+
 <p class="muted">Pacientes cadastrados na clínica.</p>
 <div class="actions"><a class="btn" href="form.php">+ Novo animal</a></div>
 <div class="panel table-wrap">
